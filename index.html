@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>priority_request</title>
+<style>
+body {
+  background-color: #000000;
+  color: #e6e6e6;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  text-align: center;
+}
+#text {
+  white-space: pre-line;
+  max-width: 700px;
+}
+button {
+  margin-top: 40px;
+  padding: 12px 30px;
+  background: transparent;
+  border: 1px solid #e6e6e6;
+  color: #e6e6e6;
+  font-family: monospace;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+button:hover {
+  background-color: #e6e6e6;
+  color: black;
+}
+.fade-in {
+  animation: fadeIn 2s ease forwards;
+  opacity: 0;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div id="text"></div>
+<button id="btn" style="display:none;" onclick="confirmPicnic()">Respond</button>
+
+<script>
+const message = `
+> Booting emotional honesty module...
+> Warning: vulnerability detected.
+
+There are many things I could try to give you
+for your birthday.
+
+Something impressive.
+Something clever.
+Something expensive.
+
+But the truth is…
+
+What I want most
+is to slow the world down
+and sit beside you.
+
+In our comfortable silence.
+No noise.
+No distractions.
+No one but the two of us.
+
+
+Will you let me take you
+on a birthday picnic,
+so I can celebrate
+the person who makes my life
+feel steady and safe?
+`;
+
+let i = 0;
+function typeWriter() {
+  if (i < message.length) {
+    document.getElementById("text").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter, 35);
+  } else {
+    document.getElementById("btn").style.display = "inline-block";
+    document.getElementById("btn").classList.add("fade-in");
+  }
+}
+typeWriter();
+
+function confirmPicnic() {
+  document.body.innerHTML = `
+    <h1 class="fade-in">She said yes.</h1>
+    <p class="fade-in">Best decision I've ever seen.</p>
+  `;
+}
+</script>
+
+</body>
+</html>
