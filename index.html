@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>priority_request</title>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
 <style>
 body {
-  background-color: #1a1a2e; 
-  color: #e6e6e6;
+  background-color: #1a1a2e; /* deep navy */
+  color: #f8c291; /* soft golden */
   font-family: monospace;
   display: flex;
   flex-direction: column;
@@ -18,28 +19,26 @@ body {
 #text {
   white-space: pre-line;
   max-width: 700px;
+  font-size: 1.2em;
 }
 button {
-  margin-top: 40px;
+  margin: 10px;
   padding: 12px 30px;
   background: transparent;
-  border: 1px solid #e6e6e6;
-  color: #e6e6e6;
+  border: 1px solid #f8c291;
+  color: #f8c291;
   font-family: monospace;
   cursor: pointer;
   transition: 0.3s ease;
+  font-size: 1em;
 }
 button:hover {
-  background-color: #e6e6e6;
-  color: black;
+  background-color: #f8c291;
+  color: #1a1a2e;
 }
 .fade-in {
+  opacity: 0;
   animation: fadeIn 2s ease forwards;
-  opacity: 0;
-}
-  .fade-line {
-  opacity: 0;
-  transition: opacity 0.6s ease-in;
 }
 @keyframes fadeIn {
   to { opacity: 1; }
@@ -49,7 +48,10 @@ button:hover {
 <body>
 
 <div id="text"></div>
-<button id="btn" style="display:none;" onclick="confirmPicnic()">Respond</button>
+<div id="buttons" style="display:none;">
+  <button onclick="chooseYes()">Yes ✅</button>
+  <button onclick="chooseYes()">Yes ❤️</button>
+</div>
 
 <script>
 const message = `
@@ -83,47 +85,22 @@ feel steady and safe?
 `;
 
 let i = 0;
-function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML += message.charAt(i);
-    i++;
-   let charDelay = 50; // normal character speed
-let lineBreakDelay = 400; // pause at new lines
+const textEl = document.getElementById("text");
+const btnEl = document.getElementById("buttons");
+const charDelay = 50;       // speed of each character
+const lineBreakDelay = 400; // pause at line breaks
 
 function typeWriter() {
   if (i < message.length) {
     const char = message.charAt(i);
-    document.getElementById("text").innerHTML += char;
+    textEl.innerHTML += char;
     i++;
-    
-    // Add extra pause after line breaks
     if (char === '\n') {
       setTimeout(typeWriter, lineBreakDelay);
     } else {
       setTimeout(typeWriter, charDelay);
     }
   } else {
-    document.getElementById("btn").style.display = "inline-block";
-    document.getElementById("btn").classList.add("fade-in");
+    btnEl.style.display = "block"; // show the choice buttons
+    btnEl.classList.add("fade-in");
   }
-}
-  } else {
-    document.getElementById("btn").style.display = "inline-block";
-    document.getElementById("btn").classList.add("fade-in");
-  }
-}
-typeWriter();
-
-function confirmPicnic() {
-  document.body.innerHTML = `
-    <h1 class="fade-in">She said yes.</h1>
-    <p class="fade-in">Best decision I've ever seen.</p>
-  `;
-}
-</script>
-
-</body>
-
-</html>
-
-
