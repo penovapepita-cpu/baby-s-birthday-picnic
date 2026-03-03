@@ -21,18 +21,17 @@ body {
   max-width: 700px;
   font-size: 1.2em;
 }
-button {
+#buttons button {
   margin: 10px;
   padding: 12px 30px;
   background: transparent;
   border: 1px solid #f8c291;
   color: #f8c291;
-  font-family: monospace;
   cursor: pointer;
   transition: 0.3s ease;
   font-size: 1em;
 }
-button:hover {
+#buttons button:hover {
   background-color: #f8c291;
   color: #1a1a2e;
 }
@@ -54,53 +53,71 @@ button:hover {
 </div>
 
 <script>
-const message = `
-> Booting emotional honesty module...
-> Warning: vulnerability detected.
-
-There are many things I could try to give you
-for your birthday.
-
-Something impressive.
-Something clever.
-Something expensive.
-
-But the truth is…
-
-What I want most
-is to slow the world down
-and sit beside you.
-
-In our comfortable silence.
-No noise.
-No distractions.
-No one but the two of us.
-
-
-Will you let me take you
-on a birthday picnic,
-so I can celebrate
-the person who makes my life
-feel steady and safe?
-`;
+// Split the message into lines for safety
+const lines = [
+"> Booting emotional honesty module...",
+"> Warning: vulnerability detected.",
+"",
+"There are many things I could try to give you",
+"for your birthday.",
+"",
+"Something impressive.",
+"Something clever.",
+"Something expensive.",
+"",
+"But the truth is…",
+"",
+"What I want most",
+"is to slow the world down",
+"and sit beside you.",
+"",
+"In our comfortable silence.",
+"No noise.",
+"No distractions.",
+"No one but the two of us.",
+"",
+"Will you let me take you",
+"on a birthday picnic,",
+"so I can celebrate",
+"the person who makes my life",
+"feel steady and safe?"
+];
 
 let i = 0;
-const textEl = document.getElementById("text");
-const btnEl = document.getElementById("buttons");
-const charDelay = 50;       // speed of each character
-const lineBreakDelay = 400; // pause at line breaks
+let textEl = document.getElementById("text");
+const charDelay = 50;
+const lineBreakDelay = 400;
 
-function typeWriter() {
-  if (i < message.length) {
-    const char = message.charAt(i);
-    textEl.innerHTML += char;
-    i++;
-    if (char === '\n') {
-      setTimeout(typeWriter, lineBreakDelay);
-    } else {
-      setTimeout(typeWriter, charDelay);
+function typeLine(lineIndex) {
+  if (lineIndex < lines.length) {
+    let line = lines[lineIndex];
+    let j = 0;
+    function typeChar() {
+      if (j < line.length) {
+        textEl.innerHTML += line.charAt(j);
+        j++;
+        setTimeout(typeChar, charDelay);
+      } else {
+        textEl.innerHTML += "\n";
+        setTimeout(() => typeLine(lineIndex + 1), lineBreakDelay);
+      }
     }
+    typeChar();
   } else {
-    btnEl.style.display = "block"; // show the choice buttons
-    btnEl.classList.add("fade-in");
+    document.getElementById("buttons").style.display = "block";
+    document.getElementById("buttons").classList.add("fade-in");
   }
+}
+
+typeLine(0);
+
+function chooseYes() {
+  document.body.innerHTML = `
+    <h1 class="fade-in">She said yes.</h1>
+    <p class="fade-in">Best decision I've ever seen.</p>
+  `;
+}
+</script>
+
+</body>
+</html>
